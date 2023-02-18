@@ -4,16 +4,25 @@ using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
+    public TileSelector tileSelector;
+
     public GameObject tilePrefab;
+    public GameObject dinoBossPrefab, robotBossPrefab;
+    public GameObject dinoMinion1Prefab, dinoMinion2Prefab, robotMinion1Prefab, robotMinion2Prefab;
 
     public int width;
     public int height;
+
+    public Vector2Int dinoBossSpawn, robotBossSpawn;
+    public Vector2Int dinoMinion1Spawn, dinoMinion2Spawn, robotMinion1Spawn, robotMinion2Spawn;
 
     private Tile[,] tiles;
 
     private void Awake()
     {
         GenerateGrid();
+        InstantiatePlayers();
+        tileSelector.TestSelector();
     }
 
     void GenerateGrid()
@@ -59,6 +68,40 @@ public class GridManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public Tile GetTileAt(Vector2Int pos)
+    {
+        return GetTileAt(pos.x, pos.y);
+    }
+
+    public Tile GetTileAt(int x, int y)
+    {
+        if (x < 0 || x > width || y < 0 || y > height)
+            return null;
+
+        return tiles[x, y];
+    }
+
+    void InstantiatePlayers()
+    {
+        GameObject dinoBoss = GameObject.Instantiate(dinoBossPrefab);
+        GetTileAt(dinoBossSpawn).OnObjectEnter(dinoBoss);
+
+        GameObject robotBoss = GameObject.Instantiate(robotBossPrefab);
+        GetTileAt(robotBossSpawn).OnObjectEnter(robotBoss);
+
+        GameObject dinoMinion1 = GameObject.Instantiate(dinoMinion1Prefab);
+        GetTileAt(dinoMinion1Spawn).OnObjectEnter(dinoMinion1);
+
+        GameObject dinoMinion2 = GameObject.Instantiate(dinoMinion2Prefab);
+        GetTileAt(dinoMinion2Spawn).OnObjectEnter(dinoMinion2);
+
+        GameObject robotMinion1 = GameObject.Instantiate(robotMinion1Prefab);
+        GetTileAt(robotMinion1Spawn).OnObjectEnter(robotMinion1);
+
+        GameObject robotMinion2 = GameObject.Instantiate(robotMinion2Prefab);
+        GetTileAt(robotMinion2Spawn).OnObjectEnter(robotMinion2);
     }
 
     bool IsPlatform(int _x, int _y)

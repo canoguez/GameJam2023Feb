@@ -206,6 +206,51 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &692319893
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 692319895}
+  - component: {fileID: 692319894}
+  m_Layer: 0
+  m_Name: TileSelector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &692319894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 692319893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9ad35e4b29757b4d9da7656de498107, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridManager: {fileID: 1234156720}
+  selectorPrefab: {fileID: 822846010235039416, guid: e77eaac0cd503fb4880efd70ba74922e, type: 3}
+--- !u!4 &692319895
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 692319893}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.7211514, y: 0.26577038, z: -0.060497522}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1234156719
 GameObject:
   m_ObjectHideFlags: 0
@@ -235,9 +280,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 327b4abf5d161294eac8b3b5d649bbd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileSelector: {fileID: 692319894}
   tilePrefab: {fileID: 6765577590877968283, guid: 81f6318280309bb498f831e12de465d8, type: 3}
+  dinoBossPrefab: {fileID: 2086068847705085331, guid: 78355ea891491f748b94237d66314aed, type: 3}
+  robotBossPrefab: {fileID: 9166438059625392644, guid: 255c12316bb3ae04e8abd1193c31a267, type: 3}
+  dinoMinion1Prefab: {fileID: 8249597038949211843, guid: 82c1cf969465f1842a6be953a04fc141, type: 3}
+  dinoMinion2Prefab: {fileID: 1969069276927442060, guid: c7e5cf6e88eb836418deae2a99c968d2, type: 3}
+  robotMinion1Prefab: {fileID: 3586105942412034312, guid: e6e9704405371ef46aa3a8516aee6f9b, type: 3}
+  robotMinion2Prefab: {fileID: 1335822283894417858, guid: b51cf7296587fe9408f14541e559ec79, type: 3}
   width: 27
   height: 18
+  dinoBossSpawn: {x: 0, y: 1}
+  robotBossSpawn: {x: 26, y: 1}
+  dinoMinion1Spawn: {x: 2, y: 1}
+  dinoMinion2Spawn: {x: 4, y: 1}
+  robotMinion1Spawn: {x: 24, y: 1}
+  robotMinion2Spawn: {x: 22, y: 1}
 --- !u!4 &1234156721
 Transform:
   m_ObjectHideFlags: 0

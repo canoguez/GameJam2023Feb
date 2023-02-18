@@ -42,6 +42,8 @@ public class Tile : MonoBehaviour
     {
         if(!objects.Contains(_go))
             objects.Add(_go);
+
+        _go.transform.position = transform.position;
     }
 
     public void OnObjectLeave(GameObject _go)
