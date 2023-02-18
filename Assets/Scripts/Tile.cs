@@ -23,7 +23,12 @@ public class Tile : MonoBehaviour
 
         transform.position = new Vector3Int(_x, _y, 0);
 
-        Debug.LogFormat("CREATED[{0}][{1}]", _x, _y);
+        SetupTile();
+    }
+
+    public void SetupTile()
+    {
+
     }
 
     public void LinkTile(Tile _t, int dir)
