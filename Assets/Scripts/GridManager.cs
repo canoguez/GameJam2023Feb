@@ -27,7 +27,7 @@ public class GridManager : MonoBehaviour
             {
                 GameObject tileObject = Instantiate(tilePrefab, transform);
                 Tile tile = tileObject.GetComponent<Tile>();
-                tile.Instantiate(x, y, false);
+                tile.Instantiate(x, y, IsPlatform(x, y));
                 tiles[x, y] = tile;
 
                 bool _atTop = (y == 0);
@@ -59,5 +59,13 @@ public class GridManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    bool IsPlatform(int _x, int _y)
+    {
+        if (_y == 0)
+            return true;
+
+        return false;
     }
 }
