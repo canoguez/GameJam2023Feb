@@ -1352,6 +1352,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridManager: {fileID: 1234156720}
   selectorPrefab: {fileID: 822846010235039416, guid: e77eaac0cd503fb4880efd70ba74922e, type: 3}
+  goodTilePrefab: {fileID: 1938602269049539192, guid: 808ba73434a602546bdfe844a1c24be7, type: 3}
 --- !u!4 &692319895
 Transform:
   m_ObjectHideFlags: 0

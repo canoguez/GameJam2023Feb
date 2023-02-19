@@ -55,4 +55,9 @@ public class Tile : MonoBehaviour
         if (objects.Contains(_go))
             objects.Remove(_go);
     }
+
+    public bool IsSteppable()
+    {
+        return !isPlatform && (tiles[4] != null && tiles[4].isPlatform);
+    }
 }
