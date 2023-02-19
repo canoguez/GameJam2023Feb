@@ -15,7 +15,7 @@ public class MainMenu : MonoBehaviour {
     }
 
     public void Update(){
-        if(Input.GetKeyDown(KeyCode.Keypad2)){
+        if(InputHandler.Instance.Left()){
             SelectedButton++;
             SelectedButton = SelectedButton % ButtonList.Count;
             ChangeSelection(SelectedButton);
