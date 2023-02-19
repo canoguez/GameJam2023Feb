@@ -84,6 +84,11 @@ public class TurnHandler : Singleton<TurnHandler>
         UpdateTurnText();
     }
 
+    public void TriggerPlayerVictory(PlayerEnum playerEnum)
+    {
+        Debug.Log("IT'S OVER. The winner is: " + playerEnum.ToString());
+    }
+
     public void ToggleDefendMovePanel(bool show)
     {
         defendMovePanel.SetActive(show);

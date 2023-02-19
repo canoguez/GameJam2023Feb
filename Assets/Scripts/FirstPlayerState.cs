@@ -9,22 +9,32 @@ public class FirstPlayerState : TurnBaseState
 
     public override void EnterState(TurnHandler handler)
     {
+        if (CheckLoss())
+            return;
+
         Debug.Log("Player One Turn");
         handler.onPlayerOneTurn.Invoke();
-
-        switch(currentUnit)
+        do
         {
-            case PlayerUnit.Boss:
-                curPlayer = BattleManager.Instance.dinoBoss.GetComponent<Player>();
-                break;
-            case PlayerUnit.Minion1:
-                curPlayer = BattleManager.Instance.dinoMinion1.GetComponent<Player>();
-                break;
-            case PlayerUnit.Minion2:
-                curPlayer = BattleManager.Instance.dinoMinion2.GetComponent<Player>();
-                break;
-        }
+            switch (currentUnit)
+            {
+                case PlayerUnit.Boss:
+                    curPlayer = BattleManager.Instance.dinoBoss.GetComponent<Player>();
+                    break;
+                case PlayerUnit.Minion1:
+                    curPlayer = BattleManager.Instance.dinoMinion1.GetComponent<Player>();
+                    break;
+                case PlayerUnit.Minion2:
+                    curPlayer = BattleManager.Instance.dinoMinion2.GetComponent<Player>();
+                    break;
+            }
 
+            if (curPlayer.KOd)
+            {
+                SwapUnit();
+            }
+        }
+        while (curPlayer.KOd);
 
         handler.StartPlayerTurn(curPlayer);
     }
@@ -41,7 +51,27 @@ public class FirstPlayerState : TurnBaseState
 
     public override void EndTurn()
     {
-        int newUnit = ((int)currentUnit+1) % 3;
+        SwapUnit();
+    }
+
+    public void SwapUnit()
+    {
+        int newUnit = ((int)currentUnit + 1) % 3;
         currentUnit = (PlayerUnit)newUnit;
+    }
+
+    public bool CheckLoss()
+    {
+        bool bossAlive = BattleManager.Instance.dinoBoss.GetComponent<Player>();
+        bool minion1Alive = BattleManager.Instance.dinoMinion1.GetComponent<Player>();
+        bool minion2Alive = BattleManager.Instance.dinoMinion2.GetComponent<Player>();
+
+        if(!bossAlive && !minion1Alive && !minion2Alive)
+        {
+            TurnHandler.Instance.TriggerPlayerVictory(PlayerEnum.P2);
+            return true;
+        }
+
+        return false;
     }
 }

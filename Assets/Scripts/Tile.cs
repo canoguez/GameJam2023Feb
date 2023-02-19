@@ -60,4 +60,16 @@ public class Tile : MonoBehaviour
     {
         return !isPlatform && (tiles[4] != null && tiles[4].isPlatform);
     }
+
+    public Player GetPlayerOnTile()
+    {
+        foreach(GameObject go in objects)
+        {
+            Player p = go.GetComponent<Player>();
+            if (p)
+                return p;
+        }
+
+        return null;
+    }
 }

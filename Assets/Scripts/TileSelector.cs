@@ -131,20 +131,18 @@ public class TileSelector : MonoBehaviour
             return;
         }
 
-        onSelect?.Invoke(currentTile);
         ClearSelector();
+        onSelect?.Invoke(currentTile);
     }
 
     void CancelSelection()
     {
-        onSelect?.Invoke(null);
         ClearSelector();
+        onSelect?.Invoke(null);
     }
 
     void ClearSelector()
     {
-        onSelect = null;
-        currentTile = null;
         currentPlayer = null;
         selectableRange = new List<Tile>();
         isSelecting = false;
