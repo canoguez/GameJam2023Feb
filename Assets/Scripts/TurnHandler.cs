@@ -17,6 +17,8 @@ public class TurnHandler : Singleton<TurnHandler>
     public Text playerTurnText;
     public GameObject defendMovePanel;
     public GameObject clashPanel;
+    public GameObject victoryPanel;
+    public Text victoryText;
 
     private GameObject activePlayerCrown;
 
@@ -74,6 +76,9 @@ public class TurnHandler : Singleton<TurnHandler>
 
     public void MoveDecided()
     {
+        if (currentState.CheckLoss())
+            return;
+
         actionsLeft--;
 
         if (actionsLeft <= 0)
@@ -87,6 +92,8 @@ public class TurnHandler : Singleton<TurnHandler>
     public void TriggerPlayerVictory(PlayerEnum playerEnum)
     {
         Debug.Log("IT'S OVER. The winner is: " + playerEnum.ToString());
+        victoryPanel.SetActive(true);
+        victoryText.text = playerEnum == PlayerEnum.P1 ? "DINOS" : "ROBOTS";
     }
 
     public void ToggleDefendMovePanel(bool show)

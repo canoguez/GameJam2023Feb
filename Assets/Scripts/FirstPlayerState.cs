@@ -51,6 +51,7 @@ public class FirstPlayerState : TurnBaseState
 
     public override void EndTurn()
     {
+        CheckLoss();
         SwapUnit();
     }
 
@@ -60,11 +61,11 @@ public class FirstPlayerState : TurnBaseState
         currentUnit = (PlayerUnit)newUnit;
     }
 
-    public bool CheckLoss()
+    public override bool CheckLoss()
     {
-        bool bossAlive = BattleManager.Instance.dinoBoss.GetComponent<Player>();
-        bool minion1Alive = BattleManager.Instance.dinoMinion1.GetComponent<Player>();
-        bool minion2Alive = BattleManager.Instance.dinoMinion2.GetComponent<Player>();
+        bool bossAlive = !BattleManager.Instance.dinoBoss.GetComponent<Player>().KOd;
+        bool minion1Alive = !BattleManager.Instance.dinoMinion1.GetComponent<Player>().KOd;
+        bool minion2Alive = !BattleManager.Instance.dinoMinion2.GetComponent<Player>().KOd;
 
         if(!bossAlive && !minion1Alive && !minion2Alive)
         {

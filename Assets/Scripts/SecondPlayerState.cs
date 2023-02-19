@@ -51,6 +51,7 @@ public class SecondPlayerState : TurnBaseState
 
     public override void EndTurn()
     {
+        CheckLoss();
         SwapUnit();
     }
 
@@ -60,11 +61,11 @@ public class SecondPlayerState : TurnBaseState
         currentUnit = (PlayerUnit)newUnit;
     }
 
-    public bool CheckLoss()
+    public override bool CheckLoss()
     {
-        bool bossAlive = BattleManager.Instance.robotBoss.GetComponent<Player>();
-        bool minion1Alive = BattleManager.Instance.robotMinion1.GetComponent<Player>();
-        bool minion2Alive = BattleManager.Instance.robotMinion2.GetComponent<Player>();
+        bool bossAlive = !BattleManager.Instance.robotBoss.GetComponent<Player>().KOd;
+        bool minion1Alive = !BattleManager.Instance.robotMinion1.GetComponent<Player>().KOd;
+        bool minion2Alive = !BattleManager.Instance.robotMinion2.GetComponent<Player>().KOd;
 
         if (!bossAlive && !minion1Alive && !minion2Alive)
         {

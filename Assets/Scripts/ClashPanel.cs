@@ -41,6 +41,14 @@ public class ClashPanel : MonoBehaviour
 
         if(p1Chose && p2Chose)
         {
+            AttackChosen temp;
+            if(p1.team != Team.Dino)
+            {
+                temp = p1Option;
+                p1Option = p2Option;
+                p2Option = temp;
+            }
+
             p1Chose = false;
             p2Chose = false;
             BattleManager.Instance.Clash(p1, p1Option, p2, p2Option, atkDir);

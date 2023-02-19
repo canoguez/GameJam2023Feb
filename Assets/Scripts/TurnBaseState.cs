@@ -9,4 +9,6 @@ public abstract class TurnBaseState
 
     public abstract void EndTurn();
     public abstract string GetStatePlayer();
+
+    public abstract bool CheckLoss();
 }

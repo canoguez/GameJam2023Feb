@@ -35,6 +35,10 @@ public class Player : MonoBehaviour
 
     public void InflictKnockback(float strength, int dir)
     {
+        // No Knockback if KOd
+        if (KOd)
+            return;
+
         // TODO: Setup knockback, for now just moves em
         int modStrength = (int)strength + Mathf.FloorToInt(strength * Percent);
 
@@ -73,7 +77,7 @@ public class Player : MonoBehaviour
     // Handle getting Knocked Off Screen
     public void OffScreen(int dir)
     {
-
+        KO();
     }
 
     // Player got slammed into a wall and will take small damge
@@ -86,6 +90,12 @@ public class Player : MonoBehaviour
     {
         curHP -= damage;
         UpdatePercent(Percent * 100f);
+
+        if(curHP <= 0)
+        {
+            curHP = 0;
+            KO();
+        }
     }
 
     public void UpdatePercent(float newPercent)
@@ -107,7 +117,9 @@ public class Player : MonoBehaviour
     // Handle Removing Player
     public void KO()
     {
-
+        KOd = true;
+        gameObject.GetComponent<Renderer>().enabled = false;
+        currentTile?.OnObjectLeave(gameObject);
     }
 }
 
