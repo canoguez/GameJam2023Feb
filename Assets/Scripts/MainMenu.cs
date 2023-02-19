@@ -15,20 +15,21 @@ public class MainMenu : MonoBehaviour {
     }
 
     public void Update(){
-        if(InputHandler.Instance.Left()){
+        if(InputHandler.Instance.Up()){
             SelectedButton++;
             SelectedButton = SelectedButton % ButtonList.Count;
             ChangeSelection(SelectedButton);
 
         }
-        else if(Input.GetKeyDown(KeyCode.Keypad5)){
+        else if(InputHandler.Instance.Down())
+        {
             SelectedButton--;
             if(SelectedButton < 0){
                 SelectedButton = ButtonList.Count-1;
             }
             ChangeSelection(SelectedButton);
         }
-        else if (Input.GetKeyDown(KeyCode.KeypadPeriod))
+        else if (InputHandler.Instance.Confirm())
         {
             ButtonList[SelectedButton].onClick?.Invoke();
         }

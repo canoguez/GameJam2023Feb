@@ -43,7 +43,7 @@ public class InputHandler : Singleton<InputHandler>
     {
         return (Input.GetKeyDown(P1_Down) && (curPlayer & Player.P1) != 0) || (Input.GetKeyDown(P2_Down) && (curPlayer & Player.P2) != 0);
     }
-    public bool Confrim()
+    public bool Confirm()
     {
         return (Input.GetKeyDown(P1_Confirm) && (curPlayer & Player.P1) != 0) || (Input.GetKeyDown(P2_Confirm) && (curPlayer & Player.P2) != 0);
     }
