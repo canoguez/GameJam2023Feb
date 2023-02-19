@@ -108,6 +108,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b12e0658eb5be9e4ebdfb70b4023b576, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  team: 1
   assetName: RobotBoss
   percent: 0
   knockBack: 2
+  defending: 0
+  movement: 2
+  currentTile: {fileID: 0}
+  HP: 150
+  AttackDamage: 30
+  AttackPercent: 0.3
+  DefensePercent: 0.2

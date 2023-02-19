@@ -13,9 +13,11 @@ public class TurnHandler : Singleton<TurnHandler>
     public UnityEvent onPlayerOneTurn;
     public UnityEvent onPlayerTwoTurn;
 
+    public TileSelector tileSelector;
     public Text playerTurnText;
     public GameObject defendMovePanel;
-    
+    public GameObject clashPanel;
+
     private GameObject activePlayerCrown;
 
     // Turn variables
@@ -58,7 +60,14 @@ public class TurnHandler : Singleton<TurnHandler>
         activePlayerCrown.transform.parent = activePlayer.transform;
         activePlayerCrown.transform.localPosition = new Vector3();
 
-        playerTurnText.text = string.Format("Player {0}'s Turn. Actions Left: [{1}]",currentState.GetStatePlayer(), actionsLeft);
+        UpdateTurnText();
+
+        if (currentState.GetStatePlayer() == "One")
+            InputHandler.Instance.SetCurPlayer(PlayerEnum.P1);
+        else
+            InputHandler.Instance.SetCurPlayer(PlayerEnum.P2);
+
+        p.StartTurn();
 
         ToggleDefendMovePanel(true);
     }
@@ -66,10 +75,13 @@ public class TurnHandler : Singleton<TurnHandler>
     public void MoveDecided()
     {
         actionsLeft--;
+
         if (actionsLeft <= 0)
             EndPlayerTurn();
         else
             ToggleDefendMovePanel(true);
+
+        UpdateTurnText();
     }
 
     public void ToggleDefendMovePanel(bool show)
@@ -79,7 +91,7 @@ public class TurnHandler : Singleton<TurnHandler>
 
     public void DefendChosen()
     {
-        Debug.Log("Defend chosen!");
+        Debug.Log(activePlayer.assetName + " - Defend chosen!");
         activePlayer?.Defend();
         EndPlayerTurn();
     }
@@ -87,6 +99,51 @@ public class TurnHandler : Singleton<TurnHandler>
     public void MoveChosen()
     {
         Debug.Log("Move chosen!");
+
+        tileSelector.StartSelection(activePlayer, 2, (Tile t)=> {
+            if (t == null)
+            {
+                ToggleDefendMovePanel(true);
+            }
+            else if (activePlayer.currentTile == t)
+            {
+                Debug.Log("Player chose same tile.");
+                MoveChosen();
+            }
+            else
+            {
+                if (t.objects.Count > 0)
+                {
+                    // We shouldnt have more than 1 object on a tile at the moment
+                    GameObject go = t.objects[0];
+
+                    Player p = go.GetComponent<Player>();
+                    if (p != null)
+                    {
+                        if (p.team == activePlayer.team)
+                        {
+                            ToggleDefendMovePanel(true);
+                        }
+                        else
+                        {
+                            // Establish which direction we're attacking from
+                            int dir = (t.x < activePlayer.currentTile.x) ? 2 : 6;
+
+                            // CLASH
+                            activePlayer.currentTile.OnObjectLeave(activePlayer.gameObject);
+                            t.OnObjectEnter(activePlayer.gameObject);
+                            clashPanel.SetActive(true);
+                            clashPanel.GetComponent<ClashPanel>().ClashStart(activePlayer, p, dir);
+                        }
+                        return;
+                    }
+                }
+
+                activePlayer.currentTile.OnObjectLeave(activePlayer.gameObject);
+                t.OnObjectEnter(activePlayer.gameObject);
+                MoveDecided();
+            }
+        });
     }
 
     public void EndPlayerTurn()
@@ -95,5 +152,10 @@ public class TurnHandler : Singleton<TurnHandler>
             SwitchState(player2State);
         else
             SwitchState(player1State);
+    }
+
+    private void UpdateTurnText()
+    {
+        playerTurnText.text = string.Format("Player {0}'s Turn. Actions Left: [{1}]", currentState.GetStatePlayer(), actionsLeft);
     }
 }

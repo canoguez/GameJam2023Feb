@@ -19,36 +19,43 @@ public class InputHandler : Singleton<InputHandler>
     public const KeyCode P2_Confirm = KeyCode.KeypadEnter;
     public const KeyCode P2_Cancel = KeyCode.KeypadMinus;
 
-    [Flags]enum Player
-    {
-        P1 = 1,
-        P2 = 2
-    }
 
-    Player curPlayer = Player.P1 | Player.P2;
+    PlayerEnum curPlayer = PlayerEnum.P1 | PlayerEnum.P2;
+
+    public void SetCurPlayer(PlayerEnum _player)
+    {
+        curPlayer = _player;
+    }
 
     public bool Left()
     {
-        return (Input.GetKeyDown(P1_Left) && (curPlayer & Player.P1) != 0) || (Input.GetKeyDown(P2_Left) && (curPlayer & Player.P2) != 0);
+        return (Input.GetKeyDown(P1_Left) && (curPlayer & PlayerEnum.P1) != 0) || (Input.GetKeyDown(P2_Left) && (curPlayer & PlayerEnum.P2) != 0);
     }
     public bool Right()
     {
-        return (Input.GetKeyDown(P1_Right) && (curPlayer & Player.P1) != 0) || (Input.GetKeyDown(P2_Right) && (curPlayer & Player.P2) != 0);
+        return (Input.GetKeyDown(P1_Right) && (curPlayer & PlayerEnum.P1) != 0) || (Input.GetKeyDown(P2_Right) && (curPlayer & PlayerEnum.P2) != 0);
     }
     public bool Up()
     {
-        return (Input.GetKeyDown(P1_Up) && (curPlayer & Player.P1) != 0) || (Input.GetKeyDown(P2_Up) && (curPlayer & Player.P2) != 0);
+        return (Input.GetKeyDown(P1_Up) && (curPlayer & PlayerEnum.P1) != 0) || (Input.GetKeyDown(P2_Up) && (curPlayer & PlayerEnum.P2) != 0);
     }
     public bool Down()
     {
-        return (Input.GetKeyDown(P1_Down) && (curPlayer & Player.P1) != 0) || (Input.GetKeyDown(P2_Down) && (curPlayer & Player.P2) != 0);
+        return (Input.GetKeyDown(P1_Down) && (curPlayer & PlayerEnum.P1) != 0) || (Input.GetKeyDown(P2_Down) && (curPlayer & PlayerEnum.P2) != 0);
     }
     public bool Confirm()
     {
-        return (Input.GetKeyDown(P1_Confirm) && (curPlayer & Player.P1) != 0) || (Input.GetKeyDown(P2_Confirm) && (curPlayer & Player.P2) != 0);
+        return (Input.GetKeyDown(P1_Confirm) && (curPlayer & PlayerEnum.P1) != 0) || (Input.GetKeyDown(P2_Confirm) && (curPlayer & PlayerEnum.P2) != 0);
     }
     public bool Cancel()
     {
-        return (Input.GetKeyDown(P1_Cancel) && (curPlayer & Player.P1) != 0) || (Input.GetKeyDown(P2_Cancel) && (curPlayer & Player.P2) != 0);
+        return (Input.GetKeyDown(P1_Cancel) && (curPlayer & PlayerEnum.P1) != 0) || (Input.GetKeyDown(P2_Cancel) && (curPlayer & PlayerEnum.P2) != 0);
     }
+}
+
+[Flags]
+public enum PlayerEnum
+{
+    P1 = 1,
+    P2 = 2
 }

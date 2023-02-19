@@ -44,6 +44,10 @@ public class Tile : MonoBehaviour
             objects.Add(_go);
 
         _go.transform.position = transform.position;
+
+        Player p = _go.GetComponent<Player>();
+        if (p)
+            p.currentTile = this;
     }
 
     public void OnObjectLeave(GameObject _go)

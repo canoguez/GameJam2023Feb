@@ -12,7 +12,8 @@ public class TileSelector : MonoBehaviour
 
     Action<Tile> onSelect;
     Tile currentTile;
-    int currentPlayer = 0;
+    Player currentPlayer;
+    int maxRange = 0;
 
     bool isSelecting;
 
@@ -27,91 +28,61 @@ public class TileSelector : MonoBehaviour
         if (!isSelecting)
             return;
 
-        if(currentPlayer == 0)
+        // Left
+        if (InputHandler.Instance.Left())
         {
-            // Left
-            if(Input.GetKeyDown(KeyCode.Keypad1))
-            {
-                MoveSelectorTo(currentTile.tiles[6]);
-            }
-            // Up
-            if (Input.GetKeyDown(KeyCode.Keypad5))
-            {
-                MoveSelectorTo(currentTile.tiles[0]);
-            }
-            // Down
-            if (Input.GetKeyDown(KeyCode.Keypad2))
-            {
-                MoveSelectorTo(currentTile.tiles[4]);
-            }
-            // Right
-            if (Input.GetKeyDown(KeyCode.Keypad3))
-            {
-                MoveSelectorTo(currentTile.tiles[2]);
-            }
-
-            // Confirm
-            if (Input.GetKeyDown(KeyCode.KeypadPeriod))
-            {
-                ConfirmSelection();
-            }
-            // Cancel
-            if (Input.GetKeyDown(KeyCode.Keypad0))
-            {
-                CancelSelection();
-            }
+            MoveSelectorTo(currentTile.tiles[6]);
         }
-        else if (currentPlayer == 1)
+        // Up
+        if (InputHandler.Instance.Up())
         {
-            // Left
-            if(Input.GetKeyDown(KeyCode.Keypad7))
-            {
-                MoveSelectorTo(currentTile.tiles[6]);
-            }
-            // Up
-            if (Input.GetKeyDown(KeyCode.KeypadDivide))
-            {
-                MoveSelectorTo(currentTile.tiles[0]);
-            }
-            // Down
-            if (Input.GetKeyDown(KeyCode.Keypad8))
-            {
-                MoveSelectorTo(currentTile.tiles[4]);
-            }
-            // Right
-            if (Input.GetKeyDown(KeyCode.Keypad9))
-            {
-                MoveSelectorTo(currentTile.tiles[2]);
-            }
+            MoveSelectorTo(currentTile.tiles[0]);
+        }
+        // Down
+        if (InputHandler.Instance.Down())
+        {
+            MoveSelectorTo(currentTile.tiles[4]);
+        }
+        // Right
+        if (InputHandler.Instance.Right())
+        {
+            MoveSelectorTo(currentTile.tiles[2]);
+        }
 
-            // Confirm
-            if (Input.GetKeyDown(KeyCode.Keypad6))
-            {
-                ConfirmSelection();
-            }
-            // Cancel
-            if (Input.GetKeyDown(KeyCode.Keypad4))
-            {
-                CancelSelection();
-            }
+        // Confirm
+        if (InputHandler.Instance.Confirm())
+        {
+            ConfirmSelection();
+        }
+        // Cancel
+        if (InputHandler.Instance.Cancel())
+        {
+            CancelSelection();
         }
     }
 
-    public void StartSelection(int _player, Tile _tile, Action<Tile> _onSelect)
+    public void StartSelection(Player p, int movement, Action<Tile> _onSelect)
     {
         if (isSelecting)
             return;
 
-        currentPlayer = _player;
+        currentPlayer = p;
         onSelect = _onSelect;
+        maxRange = movement;
 
         isSelecting = true;
         ToggleSelector(true);
-        MoveSelectorTo(_tile);
+        MoveSelectorTo(p.currentTile);
     }
 
     void ConfirmSelection()
     {
+        if (currentTile.isPlatform)
+        {
+            Debug.LogWarning("Invalid tile selected.");
+            return;
+        }
+
         onSelect?.Invoke(currentTile);
         ClearSelector();
     }
@@ -126,13 +97,14 @@ public class TileSelector : MonoBehaviour
     {
         onSelect = null;
         currentTile = null;
-        currentPlayer = 0;
+        currentPlayer = null;
         isSelecting = false;
         ToggleSelector(false);
     }
 
     void ToggleSelector(bool enabled)
     {
+        Debug.Log("Toggle Selector: " + enabled);
         selector.GetComponent<Renderer>().enabled = enabled;
     }
 
