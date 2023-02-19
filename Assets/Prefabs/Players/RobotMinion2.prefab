@@ -55,5 +55,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RobotMinion2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 5971438299598550352, guid: e6e9704405371ef46aa3a8516aee6f9b, type: 3}
+      propertyPath: assetName
+      value: RobotMinion2
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 8752555680906978270, guid: e6e9704405371ef46aa3a8516aee6f9b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e6e9704405371ef46aa3a8516aee6f9b, type: 3}

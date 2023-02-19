@@ -18,14 +18,7 @@ public class GridManager : MonoBehaviour
 
     private Tile[,] tiles;
 
-    private void Awake()
-    {
-        GenerateGrid();
-        InstantiatePlayers();
-        tileSelector.TestSelector();
-    }
-
-    void GenerateGrid()
+    public void GenerateGrid()
     {
         // Generate Grid
         tiles = new Tile[width, height];
@@ -83,25 +76,25 @@ public class GridManager : MonoBehaviour
         return tiles[x, y];
     }
 
-    void InstantiatePlayers()
+    public void InstantiatePlayers()
     {
-        GameObject dinoBoss = GameObject.Instantiate(dinoBossPrefab);
-        GetTileAt(dinoBossSpawn).OnObjectEnter(dinoBoss);
+        BattleManager.Instance.dinoBoss = GameObject.Instantiate(dinoBossPrefab);
+        GetTileAt(dinoBossSpawn).OnObjectEnter(BattleManager.Instance.dinoBoss);
 
-        GameObject robotBoss = GameObject.Instantiate(robotBossPrefab);
-        GetTileAt(robotBossSpawn).OnObjectEnter(robotBoss);
+        BattleManager.Instance.robotBoss = GameObject.Instantiate(robotBossPrefab);
+        GetTileAt(robotBossSpawn).OnObjectEnter(BattleManager.Instance.robotBoss);
 
-        GameObject dinoMinion1 = GameObject.Instantiate(dinoMinion1Prefab);
-        GetTileAt(dinoMinion1Spawn).OnObjectEnter(dinoMinion1);
+        BattleManager.Instance.dinoMinion1 = GameObject.Instantiate(dinoMinion1Prefab);
+        GetTileAt(dinoMinion1Spawn).OnObjectEnter(BattleManager.Instance.dinoMinion1);
 
-        GameObject dinoMinion2 = GameObject.Instantiate(dinoMinion2Prefab);
-        GetTileAt(dinoMinion2Spawn).OnObjectEnter(dinoMinion2);
+        BattleManager.Instance.dinoMinion2 = GameObject.Instantiate(dinoMinion2Prefab);
+        GetTileAt(dinoMinion2Spawn).OnObjectEnter(BattleManager.Instance.dinoMinion2);
 
-        GameObject robotMinion1 = GameObject.Instantiate(robotMinion1Prefab);
-        GetTileAt(robotMinion1Spawn).OnObjectEnter(robotMinion1);
+        BattleManager.Instance.robotMinion1 = GameObject.Instantiate(robotMinion1Prefab);
+        GetTileAt(robotMinion1Spawn).OnObjectEnter(BattleManager.Instance.robotMinion1);
 
-        GameObject robotMinion2 = GameObject.Instantiate(robotMinion2Prefab);
-        GetTileAt(robotMinion2Spawn).OnObjectEnter(robotMinion2);
+        BattleManager.Instance.robotMinion2 = GameObject.Instantiate(robotMinion2Prefab);
+        GetTileAt(robotMinion2Spawn).OnObjectEnter(BattleManager.Instance.robotMinion2);
     }
 
     bool IsPlatform(int _x, int _y)

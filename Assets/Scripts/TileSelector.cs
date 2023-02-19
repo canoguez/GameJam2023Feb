@@ -20,7 +20,6 @@ public class TileSelector : MonoBehaviour
     {
         selector = GameObject.Instantiate(selectorPrefab);
         ToggleSelector(false);
-        
     }
 
     private void Update()
@@ -145,10 +144,5 @@ public class TileSelector : MonoBehaviour
 
         selector.transform.position = t.transform.position;
         currentTile = t;
-    }
-
-    public void TestSelector()
-    {
-        StartSelection(1, gridManager.GetTileAt(1, 1), (Tile t) => { Debug.Log(t); });
     }
 }

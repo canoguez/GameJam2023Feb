@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3763581771915966119}
   - component: {fileID: 9211970443847089313}
   - component: {fileID: 2437554394994241245}
+  - component: {fileID: 2030874931349118556}
   m_Layer: 0
   m_Name: RobotBoss
   m_TagString: Untagged
@@ -95,3 +96,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2030874931349118556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9166438059625392644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b12e0658eb5be9e4ebdfb70b4023b576, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  assetName: RobotBoss
+  percent: 0
+  knockBack: 2

@@ -59,5 +59,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8184004168492195226, guid: b51cf7296587fe9408f14541e559ec79, type: 3}
+      propertyPath: assetName
+      value: DinoMinion2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b51cf7296587fe9408f14541e559ec79, type: 3}

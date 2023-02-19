@@ -59,5 +59,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: DinoMinion1
       objectReference: {fileID: 0}
+    - target: {fileID: 5971438299598550352, guid: e6e9704405371ef46aa3a8516aee6f9b, type: 3}
+      propertyPath: assetName
+      value: DinoMinion1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e6e9704405371ef46aa3a8516aee6f9b, type: 3}

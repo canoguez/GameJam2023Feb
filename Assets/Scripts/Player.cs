@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public string assetName = "";
+    public float percent = 0;
+    public int knockBack = 2;
+    public bool defending = false;
+
+    public void UpdatePercent(float newPercent)
     {
-        
+        percent = newPercent;
+        GameUIManager.Instance.portraitDictionary[assetName].percent.text = Mathf.RoundToInt(percent).ToString() + "%";
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Defend()
     {
-        
+        defending = true;
     }
 }

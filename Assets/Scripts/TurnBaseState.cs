@@ -5,6 +5,8 @@ using UnityEngine;
 public abstract class TurnBaseState
 {
     public abstract void EnterState(TurnHandler handler);
-
     public abstract void UpdateState(TurnHandler handler);
+
+    public abstract void EndTurn();
+    public abstract string GetStatePlayer();
 }
