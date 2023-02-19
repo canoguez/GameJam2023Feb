@@ -28,36 +28,73 @@ public class TileSelector : MonoBehaviour
         if (!isSelecting)
             return;
 
-        // Left
-        if(Input.GetKeyDown(KeyCode.Keypad1))
+        if(currentPlayer == 0)
         {
-            MoveSelectorTo(currentTile.tiles[6]);
-        }
-        // Up
-        if (Input.GetKeyDown(KeyCode.Keypad5))
-        {
-            MoveSelectorTo(currentTile.tiles[0]);
-        }
-        // Down
-        if (Input.GetKeyDown(KeyCode.Keypad2))
-        {
-            MoveSelectorTo(currentTile.tiles[4]);
-        }
-        // Right
-        if (Input.GetKeyDown(KeyCode.Keypad3))
-        {
-            MoveSelectorTo(currentTile.tiles[2]);
-        }
+            // Left
+            if(Input.GetKeyDown(KeyCode.Keypad1))
+            {
+                MoveSelectorTo(currentTile.tiles[6]);
+            }
+            // Up
+            if (Input.GetKeyDown(KeyCode.Keypad5))
+            {
+                MoveSelectorTo(currentTile.tiles[0]);
+            }
+            // Down
+            if (Input.GetKeyDown(KeyCode.Keypad2))
+            {
+                MoveSelectorTo(currentTile.tiles[4]);
+            }
+            // Right
+            if (Input.GetKeyDown(KeyCode.Keypad3))
+            {
+                MoveSelectorTo(currentTile.tiles[2]);
+            }
 
-        // Confirm
-        if (Input.GetKeyDown(KeyCode.KeypadPeriod))
-        {
-            ConfirmSelection();
+            // Confirm
+            if (Input.GetKeyDown(KeyCode.KeypadPeriod))
+            {
+                ConfirmSelection();
+            }
+            // Cancel
+            if (Input.GetKeyDown(KeyCode.Keypad0))
+            {
+                CancelSelection();
+            }
         }
-        // Cancel
-        if (Input.GetKeyDown(KeyCode.Keypad0))
+        else if (currentPlayer == 1)
         {
-            CancelSelection();
+            // Left
+            if(Input.GetKeyDown(KeyCode.Keypad7))
+            {
+                MoveSelectorTo(currentTile.tiles[6]);
+            }
+            // Up
+            if (Input.GetKeyDown(KeyCode.KeypadDivide))
+            {
+                MoveSelectorTo(currentTile.tiles[0]);
+            }
+            // Down
+            if (Input.GetKeyDown(KeyCode.Keypad8))
+            {
+                MoveSelectorTo(currentTile.tiles[4]);
+            }
+            // Right
+            if (Input.GetKeyDown(KeyCode.Keypad9))
+            {
+                MoveSelectorTo(currentTile.tiles[2]);
+            }
+
+            // Confirm
+            if (Input.GetKeyDown(KeyCode.Keypad6))
+            {
+                ConfirmSelection();
+            }
+            // Cancel
+            if (Input.GetKeyDown(KeyCode.Keypad4))
+            {
+                CancelSelection();
+            }
         }
     }
 
