@@ -20,6 +20,8 @@ public class TileSelector : MonoBehaviour
 
     GameObject selectableRangeParent;
     List<Tile> selectableRange;
+    Tile jumpableTile;
+    Tile droppableTile;
 
     private void Awake()
     {
@@ -41,12 +43,26 @@ public class TileSelector : MonoBehaviour
         // Up
         if (InputHandler.Instance.Up())
         {
-            MoveSelectorTo(currentTile.tiles[0]);
+            if (droppableTile != null && currentTile == droppableTile)
+            {
+                MoveSelectorTo(currentPlayer.currentTile);
+            }
+            else if (jumpableTile!=null)
+            {
+                MoveSelectorTo(jumpableTile);
+            }
         }
         // Down
         if (InputHandler.Instance.Down())
         {
-            MoveSelectorTo(currentTile.tiles[4]);
+            if(jumpableTile!=null && currentTile == jumpableTile)
+            {
+                MoveSelectorTo(currentPlayer.currentTile);
+            }
+            else if(droppableTile != null)
+            {
+                MoveSelectorTo(droppableTile);
+            }
         }
         // Right
         if (InputHandler.Instance.Right())
@@ -76,6 +92,9 @@ public class TileSelector : MonoBehaviour
         maxRange = movement;
 
         selectableRange = GetAllTilesWithingRange(p.currentTile, maxRange, selectableRange);
+        jumpableTile = GetJumpableTile(p.currentTile);
+        droppableTile = GetDroppableTile(p.currentTile);
+
         ToggleSelectableRange(true);
 
         isSelecting = true;
@@ -95,7 +114,53 @@ public class TileSelector : MonoBehaviour
         }
 
         if(show)
-        {            
+        {         
+            if(jumpableTile)
+            {
+                GameObject goodTile = GameObject.Instantiate(goodTilePrefab, selectableRangeParent.transform);
+                goodTile.transform.position = jumpableTile.transform.position;
+
+                if (jumpableTile.objects.Count > 0)
+                {
+                    Player p = jumpableTile.objects[0].GetComponent<Player>();
+                    if (p != null)
+                    {
+                        // Yellow = Teammate
+                        if (p.team == currentPlayer.team)
+                        {
+                            goodTile.GetComponent<Renderer>().material.color = Color.yellow - new Color(0, 0, 0, 0.5f);
+                        }
+                        else
+                        {
+                            goodTile.GetComponent<Renderer>().material.color = Color.red - new Color(0, 0, 0, 0.5f);
+                        }
+                    }
+                }
+            }
+
+            if (droppableTile)
+            {
+                GameObject goodTile = GameObject.Instantiate(goodTilePrefab, selectableRangeParent.transform);
+                goodTile.transform.position = droppableTile.transform.position;
+
+                if (droppableTile.objects.Count > 0)
+                {
+                    Player p = droppableTile.objects[0].GetComponent<Player>();
+                    if (p != null)
+                    {
+                        // Yellow = Teammate
+                        if (p.team == currentPlayer.team)
+                        {
+                            goodTile.GetComponent<Renderer>().material.color = Color.yellow - new Color(0, 0, 0, 0.5f);
+                        }
+                        else
+                        {
+                            goodTile.GetComponent<Renderer>().material.color = Color.red - new Color(0, 0, 0, 0.5f);
+                        }
+                    }
+                }
+            }
+
             foreach (Tile t in selectableRange)
             {
                 GameObject goodTile = GameObject.Instantiate(goodTilePrefab, selectableRangeParent.transform);
@@ -125,6 +190,11 @@ public class TileSelector : MonoBehaviour
 
     void ConfirmSelection()
     {
+        if(currentTile == jumpableTile)
+        {
+            TurnHandler.Instance.actionsLeft--;
+        }
+
         if (currentTile.isPlatform)
         {
             Debug.LogWarning("Invalid tile selected.");
@@ -146,6 +216,7 @@ public class TileSelector : MonoBehaviour
         currentPlayer = null;
         selectableRange = new List<Tile>();
         isSelecting = false;
+        jumpableTile = null;
         ToggleSelector(false);
         ToggleSelectableRange(false);
     }
@@ -160,7 +231,6 @@ public class TileSelector : MonoBehaviour
             Tile tile = t.tiles[i];
 
             // Only add steppable platforms.
-            // TODO: add vertical movement
             if (tile != null && !curList.Contains(tile) && tile.IsSteppable())
             {
                 curList.Add(tile);
@@ -169,6 +239,70 @@ public class TileSelector : MonoBehaviour
         }
 
         return curList;
+    }
+
+    Tile GetJumpableTile(Tile t)
+    {
+        if (TurnHandler.Instance.actionsLeft < 2)
+        {
+            return null;
+        }
+
+        // Check above
+        Tile nextTile = t.tiles[0];
+        while (nextTile != null)
+        {
+            // Right
+            Tile rightTile = nextTile.tiles[2];
+            if (rightTile && rightTile.IsSteppable())
+            {
+                return rightTile;
+            }
+
+            // Left
+            Tile leftTile = nextTile.tiles[6];
+            if (leftTile && leftTile.IsSteppable())
+            {
+                return leftTile;
+            }
+
+            nextTile = nextTile.tiles[0];
+        }
+
+        return null;
+    }
+
+    Tile GetDroppableTile(Tile t)
+    {
+        // Right
+        Tile rightTile = t.tiles[2];
+        if(rightTile && !rightTile.IsSteppable())
+            if (rightTile && !rightTile.isPlatform && rightTile.tiles[4] != null)
+            {
+                Tile nextTile = rightTile;
+                while (nextTile != null)
+                {
+                    if (nextTile.IsSteppable())
+                        return nextTile;
+                    nextTile = nextTile.tiles[4];
+                }
+            }
+
+        // Left
+        Tile leftTile = t.tiles[6];
+        if (leftTile && !leftTile.IsSteppable())
+            if (leftTile && !leftTile.isPlatform && leftTile.tiles[4] != null)
+            {
+                Tile nextTile = leftTile;
+                while (nextTile != null)
+                {
+                    if(nextTile.IsSteppable())
+                        return nextTile;
+                    nextTile = nextTile.tiles[4];
+                }
+            }
+
+        return null;
     }
 
     void ToggleSelector(bool enabled)
@@ -183,7 +317,7 @@ public class TileSelector : MonoBehaviour
         if (t == null)
             return;
 
-        if (!selectableRange.Contains(t))
+        if (!selectableRange.Contains(t) && !jumpableTile && !droppableTile)
             return;
 
         selector.transform.position = t.transform.position;

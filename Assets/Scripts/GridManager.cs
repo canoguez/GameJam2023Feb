@@ -17,11 +17,14 @@ public class GridManager : MonoBehaviour
     public Vector2Int dinoMinion1Spawn, dinoMinion2Spawn, robotMinion1Spawn, robotMinion2Spawn;
 
     private Tile[,] tiles;
+    private bool[,] platformMap;
 
     public void GenerateGrid()
     {
         // Generate Grid
         tiles = new Tile[width, height];
+        platformMap = new bool[width, height];
+        SetUpPlatformMap();
 
         for (int x = 0; x < width; x++)
         {
@@ -97,11 +100,63 @@ public class GridManager : MonoBehaviour
         GetTileAt(robotMinion2Spawn).OnObjectEnter(BattleManager.Instance.robotMinion2);
     }
 
+    void SetUpPlatformMap()
+    {
+        int distFromWall = 4;
+        int platormWidthMin = 4;
+        int platormWidthMax = 7;
+
+        int plat1Length = Random.Range(platormWidthMin, platormWidthMax);
+        int plat2Length = Random.Range(platormWidthMin, platormWidthMax);
+        int plat2StartX = width - distFromWall - plat2Length;
+
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                if (y == 0)
+                {
+                    platformMap[x, y] = true;
+                    continue;
+                }
+
+                // First set of platforms
+                if (y == 5)
+                {
+                    // 1st plaform
+                    if (x > distFromWall && x < distFromWall + plat1Length)
+                    {
+                        platformMap[x, y] = true;
+                        continue;
+                    }
+
+                    // 2nd platform
+                    if (x > plat2StartX && x < plat2StartX + plat2Length)
+
+                    {
+                        platformMap[x, y] = true;
+                        continue;
+                    }
+                }
+
+                // Second set of platforms
+                if (y == 10)
+                {
+                    // 1st plaform
+
+                    if (x >= distFromWall + plat1Length && x <= plat2StartX)
+                    {
+                        platformMap[x, y] = true;
+                        continue;
+                    }
+                }
+            }
+        }
+    }
+
+    //27 x 18
     bool IsPlatform(int _x, int _y)
     {
-        if (_y == 0)
-            return true;
-
-        return false;
+        return platformMap[_x, _y];
     }
 }
