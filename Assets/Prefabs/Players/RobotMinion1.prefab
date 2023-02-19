@@ -8,12 +8,28 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2030874931349118556, guid: 255c12316bb3ae04e8abd1193c31a267, type: 3}
+      propertyPath: HP
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 2030874931349118556, guid: 255c12316bb3ae04e8abd1193c31a267, type: 3}
       propertyPath: team
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2030874931349118556, guid: 255c12316bb3ae04e8abd1193c31a267, type: 3}
       propertyPath: assetName
       value: RobotMinion1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2030874931349118556, guid: 255c12316bb3ae04e8abd1193c31a267, type: 3}
+      propertyPath: AttackDamage
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2030874931349118556, guid: 255c12316bb3ae04e8abd1193c31a267, type: 3}
+      propertyPath: AttackPercent
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2030874931349118556, guid: 255c12316bb3ae04e8abd1193c31a267, type: 3}
+      propertyPath: DefensePercent
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 5965410270330970324, guid: 255c12316bb3ae04e8abd1193c31a267, type: 3}
       propertyPath: m_RootOrder

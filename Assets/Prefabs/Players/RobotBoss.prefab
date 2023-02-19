@@ -115,7 +115,7 @@ MonoBehaviour:
   defending: 0
   movement: 2
   currentTile: {fileID: 0}
-  HP: 150
-  AttackDamage: 30
-  AttackPercent: 0.3
-  DefensePercent: 0.2
+  HP: 200
+  AttackDamage: 40
+  AttackPercent: 0.25
+  DefensePercent: 0.25
