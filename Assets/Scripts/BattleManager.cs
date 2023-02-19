@@ -17,6 +17,8 @@ public class BattleManager : Singleton<BattleManager>
 
     public GameObject dinoBoss, dinoMinion1, dinoMinion2, robotBoss, robotMinion1, robotMinion2;
 
+    public AudioClip hit;
+
     void Start()
     {
         gridManager.GenerateGrid();
@@ -82,6 +84,8 @@ public class BattleManager : Singleton<BattleManager>
 
             if (!def2Success)
                 p2.InflictKnockback(1, atkDirection);
+
+            TriggerHitSound();
         }
         if (atk2Success)
         {
@@ -91,6 +95,8 @@ public class BattleManager : Singleton<BattleManager>
 
             if (!def2Success)
                 p2.InflictKnockback(1, (atkDirection + 4) % 8);
+
+            TriggerHitSound();
         }
 
         p1.defending = false;
@@ -107,6 +113,12 @@ public class BattleManager : Singleton<BattleManager>
     public void UpdatePlayerHealth(Player p, float newPercent)
     {
         p.UpdatePercent(newPercent);
+    }
+
+    public void TriggerHitSound()
+    {
+        gameObject.GetComponent<AudioSource>().clip = hit;
+        gameObject.GetComponent<AudioSource>().Play();
     }
 }
 
