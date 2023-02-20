@@ -62,12 +62,20 @@ public class TurnHandler : Singleton<TurnHandler>
         activePlayerCrown.transform.parent = activePlayer.transform;
         activePlayerCrown.transform.localPosition = new Vector3();
 
+        if(p)
+
         UpdateTurnText();
 
         if (currentState.GetStatePlayer() == "One")
+        {
+            activePlayerCrown.GetComponentInChildren<SpriteRenderer>().sprite = Resources.Load<Sprite>("UI/PrimalIconActive");
             InputHandler.Instance.SetCurPlayer(PlayerEnum.P1);
+        }
         else
+        {
+            activePlayerCrown.GetComponentInChildren<SpriteRenderer>().sprite = Resources.Load<Sprite>("UI/FutureIconActive");
             InputHandler.Instance.SetCurPlayer(PlayerEnum.P2);
+        }
 
         p.StartTurn();
 

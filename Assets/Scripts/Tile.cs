@@ -29,7 +29,7 @@ public class Tile : MonoBehaviour
     public void SetupTile()
     {
         // For now just hide any block that's not a platform
-        GetComponent<Renderer>().enabled = isPlatform;
+        GetComponent<SpriteRenderer>().enabled = isPlatform;
     }
 
     public void LinkTile(Tile _t, int dir)
