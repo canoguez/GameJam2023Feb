@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/StartMenu.unity
     guid: b245f4e1a40982f4a8fcb926f847cbbd
   - enabled: 1
-    path: Assets/Scenes/TestMap.unity
+    path: Assets/Scenes/BattleMap.unity
     guid: df86a3e65c9419f4a860220128628c64
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 983e1946907e7e145867de6617d67089, type: 2}
