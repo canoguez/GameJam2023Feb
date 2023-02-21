@@ -115,24 +115,27 @@ public class TileSelector : MonoBehaviour
 
         if(show)
         {         
+
             if(jumpableTile)
             {
                 GameObject goodTile = GameObject.Instantiate(goodTilePrefab, selectableRangeParent.transform);
                 goodTile.transform.position = jumpableTile.transform.position;
+            
 
                 if (jumpableTile.objects.Count > 0)
                 {
                     Player p = jumpableTile.objects[0].GetComponent<Player>();
                     if (p != null)
                     {
+                        SpriteRenderer tileRend = goodTile.GetComponentInChildren<SpriteRenderer>();
                         // Yellow = Teammate
                         if (p.team == currentPlayer.team)
                         {
-                            goodTile.GetComponent<Renderer>().material.color = Color.yellow - new Color(0, 0, 0, 0.5f);
+                            tileRend.sprite = Resources.Load<Sprite>("Tiles/YellowTile");
                         }
                         else
                         {
-                            goodTile.GetComponent<Renderer>().material.color = Color.red - new Color(0, 0, 0, 0.5f);
+                            tileRend.sprite = Resources.Load<Sprite>("Tiles/RedTile");
                         }
                     }
                 }
@@ -148,14 +151,15 @@ public class TileSelector : MonoBehaviour
                     Player p = droppableTile.objects[0].GetComponent<Player>();
                     if (p != null)
                     {
+                        SpriteRenderer tileRend = goodTile.GetComponentInChildren<SpriteRenderer>();
                         // Yellow = Teammate
                         if (p.team == currentPlayer.team)
                         {
-                            goodTile.GetComponent<Renderer>().material.color = Color.yellow - new Color(0, 0, 0, 0.5f);
+                            tileRend.sprite = Resources.Load<Sprite>("Tiles/YellowTile");
                         }
                         else
                         {
-                            goodTile.GetComponent<Renderer>().material.color = Color.red - new Color(0, 0, 0, 0.5f);
+                            tileRend.sprite = Resources.Load<Sprite>("Tiles/RedTile");
                         }
                     }
                 }
@@ -173,14 +177,15 @@ public class TileSelector : MonoBehaviour
                     Player p = t.objects[0].GetComponent<Player>();
                     if (p != null)
                     {
+                        SpriteRenderer tileRend = goodTile.GetComponentInChildren<SpriteRenderer>();
                         // Yellow = Teammate
                         if (p.team == currentPlayer.team)
                         {
-                            goodTile.GetComponent<Renderer>().material.color = Color.yellow - new Color(0,0,0,0.5f);
+                            tileRend.sprite = Resources.Load<Sprite>("Tiles/YellowTile");
                         }
                         else
                         {
-                            goodTile.GetComponent<Renderer>().material.color = Color.red - new Color(0, 0, 0, 0.5f);
+                            tileRend.sprite = Resources.Load<Sprite>("Tiles/RedTile");
                         }
                     }
                 }
