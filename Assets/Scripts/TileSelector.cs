@@ -23,6 +23,11 @@ public class TileSelector : MonoBehaviour
     Tile jumpableTile;
     Tile droppableTile;
 
+    private void Start()
+    {
+        ToggleSelector(false);
+    }
+
     private void Awake()
     {
         selector = GameObject.Instantiate(selectorPrefab);
@@ -313,7 +318,7 @@ public class TileSelector : MonoBehaviour
     void ToggleSelector(bool enabled)
     {
         Debug.Log("Toggle Selector: " + enabled);
-        selector.GetComponentInChildren<Renderer>().enabled = enabled;
+        selector.SetActive(enabled);
     }
 
     void MoveSelectorTo(Tile t)
